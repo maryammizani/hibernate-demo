@@ -32,7 +32,6 @@
 - Inside that DB, it will create a new table called “student”
 - Refresh the Schemas to see the created DB/Table
 
----
 
 # Setup Hibernate in Eclipse:
 - Create an Eclipse Project
