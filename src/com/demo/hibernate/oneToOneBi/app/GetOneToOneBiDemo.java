@@ -1,13 +1,14 @@
-package com.demo.hibernate.oneToOneUni.app;
+package com.demo.hibernate.oneToOneBi.app;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.demo.hibernate.oneToOneUni.entity.Instructor;
-import com.demo.hibernate.oneToOneUni.entity.InstructorDetail;
+import com.demo.hibernate.oneToOneBi.entity.Instructor;
+import com.demo.hibernate.oneToOneBi.entity.InstructorDetail;
 
-public class CreateOneToOneUniDemo {
+
+public class GetOneToOneBiDemo {
 
 	public static void main(String[] args) {
 		
@@ -20,21 +21,19 @@ public class CreateOneToOneUniDemo {
 						
 		// Create a Session
 		Session lSession = lFactory.getCurrentSession();
-		try {		
-			// Create the Objects
-			Instructor lInstructor = new Instructor("Paul", "wall", "paul@demo.com");
-			InstructorDetail lInstructorDetail = new InstructorDetail("SomeUrl", "hobby");		
-						
-			// Associate the objects
-			lInstructor.setInstructorDetail(lInstructorDetail);
+		try {									
 			
 			// Start a transaction
 			lSession.beginTransaction();
 			
-			// Save the Instructor (This will also save the InstructorDetails because of Cascade.ALL)
-			System.out.println("Saving the Instructor: " + lInstructor);
-			lSession.save(lInstructor);
+			// get and print Instructor detail object
+			int lId = 2;
+			InstructorDetail lInstructorDetail = lSession.get(InstructorDetail.class, lId);
+			System.out.println("Found InstructorDetail: " + lInstructorDetail);
 			
+			// print the associated Instructor
+			System.out.println("The associated Instructor: " + lInstructorDetail.getInstructor());
+						
 			// Commit transaction
 			lSession.getTransaction().commit();
 			System.out.println("Done");
