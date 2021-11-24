@@ -1,4 +1,4 @@
-package com.demo.hibernate.entity;
+package com.demo.hibernate.oneToOneUni.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

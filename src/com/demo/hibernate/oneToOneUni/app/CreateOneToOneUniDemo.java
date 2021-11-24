@@ -1,12 +1,12 @@
-package com.demo.hibernate.oneToOneUniApp;
+package com.demo.hibernate.oneToOneUni.app;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.demo.hibernate.entity.Instructor;
-import com.demo.hibernate.entity.InstructorDetail;
 import com.demo.hibernate.entity.Student;
+import com.demo.hibernate.oneToOneUni.entity.Instructor;
+import com.demo.hibernate.oneToOneUni.entity.InstructorDetail;
 
 public class CreateOneToOneUniDemo {
 
