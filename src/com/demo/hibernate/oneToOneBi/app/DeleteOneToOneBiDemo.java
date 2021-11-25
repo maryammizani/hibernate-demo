@@ -26,7 +26,7 @@ public class DeleteOneToOneBiDemo {
 			lSession.beginTransaction();
 			
 			// get and print Instructor detail object
-			int lId = 2;
+			int lId = 3;
 			InstructorDetail lInstructorDetail = lSession.get(InstructorDetail.class, lId);
 			System.out.println("InstructorDetail: " + lInstructorDetail);
 			
@@ -35,6 +35,9 @@ public class DeleteOneToOneBiDemo {
 						
 			// Delete the instructor detail
 			System.out.println("Delete Instructor detail: " + lInstructorDetail);
+			
+			// First set the lInstructor to null, and then delete the lInstructorDetail
+			lInstructorDetail.getInstructor().setInstructorDetail(null);
 			lSession.delete(lInstructorDetail);  // This will also delete the Instructor	
 			
 			// Commit transaction

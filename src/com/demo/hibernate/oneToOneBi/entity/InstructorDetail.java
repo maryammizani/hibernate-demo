@@ -33,7 +33,9 @@ public class InstructorDetail {
 	
 	// instrucotrDetail refers to the instructorDetail member variable in the Instructor class
 	// Cascade all operations to the associated Instructor
-	@OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL)
+	// @OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="instructorDetail", 
+			  cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private Instructor instructor;	
 	
 	public InstructorDetail() {
