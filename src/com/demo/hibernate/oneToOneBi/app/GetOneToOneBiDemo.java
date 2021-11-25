@@ -27,7 +27,7 @@ public class GetOneToOneBiDemo {
 			lSession.beginTransaction();
 			
 			// get and print Instructor detail object
-			int lId = 2;
+			int lId = 22;
 			InstructorDetail lInstructorDetail = lSession.get(InstructorDetail.class, lId);
 			System.out.println("Found InstructorDetail: " + lInstructorDetail);
 			
@@ -38,7 +38,12 @@ public class GetOneToOneBiDemo {
 			lSession.getTransaction().commit();
 			System.out.println("Done");
 		}
+		catch(Exception exc) {				
+			exc.printStackTrace();
+		}
 		finally {
+			// handle connection leak issue
+			lSession.close();
 			lFactory.close();
 		}
 	}
