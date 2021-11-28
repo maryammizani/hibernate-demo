@@ -8,7 +8,7 @@ import com.demo.hibernate.oneToMany.entity.Course;
 import com.demo.hibernate.oneToMany.entity.Instructor;
 import com.demo.hibernate.oneToMany.entity.InstructorDetail;
 
-public class CreateOneToManyDemo {
+public class CreateCoursesDemo {
 
 	public static void main(String[] args) {
 		
@@ -23,20 +23,24 @@ public class CreateOneToManyDemo {
 		// Create a Session
 		Session lSession = lFactory.getCurrentSession();
 		try {									
-			
-			// Create the Objects
-			Instructor lInstructor = new Instructor("Susan", "public", "susan@demo.com");
-			InstructorDetail lInstructorDetail = new InstructorDetail("SomeUrl2", "hobby2");		
-						
-			// Associate the objects
-			lInstructor.setInstructorDetail(lInstructorDetail);
-			
 			// Start a transaction
 			lSession.beginTransaction();
 			
-			// Save the Instructor (This will also save the InstructorDetails because of Cascade.ALL)
-			System.out.println("Saving the Instructor: " + lInstructor);
-			lSession.save(lInstructor);
+			// Get Instructor from DB
+			int lId = 1;
+			Instructor llInstructor = lSession.get(Instructor.class, lId);
+			
+			// Create Some Courses
+			Course lCourse1 = new Course("Guitar");
+			Course lCourse2 = new Course("Pinball");
+			
+			// Add Courses to the Instructor
+			llInstructor.add(lCourse1);
+			llInstructor.add(lCourse2);
+
+			//Save the Courses
+			lSession.save(lCourse1);
+			lSession.save(lCourse2);
 			
 			// Commit transaction
 			lSession.getTransaction().commit();
