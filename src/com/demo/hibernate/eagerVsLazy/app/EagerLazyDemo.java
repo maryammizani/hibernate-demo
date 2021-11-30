@@ -4,9 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.demo.hibernate.oneToMany.entity.Course;
-import com.demo.hibernate.oneToMany.entity.Instructor;
-import com.demo.hibernate.oneToMany.entity.InstructorDetail;
+import com.demo.hibernate.eagerVsLazy.entity.Course;
+import com.demo.hibernate.eagerVsLazy.entity.Instructor;
+import com.demo.hibernate.eagerVsLazy.entity.InstructorDetail;
 
 public class EagerLazyDemo {
 
@@ -29,8 +29,9 @@ public class EagerLazyDemo {
 			// Get Instructor from DB
 			int lId = 1;
 			Instructor lInstructor = lSession.get(Instructor.class, lId);
-			System.out.println("Instructor: " + lInstructor);  // This will print all the Course info of this instructor as well
-			
+			 System.out.println("Instructor: " + lInstructor);  // This will print all the Course info of this instructor as well
+			 System.out.println("-------- Get Courses Now ----------");
+			 
 			// get courses for the Instructor
 			System.out.println("Courses: " + lInstructor.getCourses());
 			
