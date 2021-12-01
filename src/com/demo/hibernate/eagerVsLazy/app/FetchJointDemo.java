@@ -3,12 +3,13 @@ package com.demo.hibernate.eagerVsLazy.app;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.demo.hibernate.eagerVsLazy.entity.Course;
 import com.demo.hibernate.eagerVsLazy.entity.Instructor;
 import com.demo.hibernate.eagerVsLazy.entity.InstructorDetail;
 
-public class EagerLazyDemo {
+public class FetchJointDemo {
 
 	public static void main(String[] args) {
 		
@@ -28,19 +29,25 @@ public class EagerLazyDemo {
 			
 			// Get Instructor from DB
 			int lId = 1;
-			Instructor lInstructor = lSession.get(Instructor.class, lId);
-			 System.out.println("Instructor: " + lInstructor);  // This will print all the Course info of this instructor as well
-			 System.out.println("-------- Get Courses Now ----------");
-			 System.out.println("Courses: " + lInstructor.getCourses());	
+			// This query will load instructor and courses all at once
+			Query<Instructor> lQuery = lSession.createQuery("select i from Instructor i "
+					+ "JOIN FETCH i.courses "
+					+ "where i.id=:lInstructorId",
+					Instructor.class);
+			
+			// set parameter on query
+			lQuery.setParameter("lInstructorId", lId);
+			
+			// Execute the query and get Instructor
+			Instructor lInstructor = lQuery.getSingleResult();
+			 System.out.println("Instructor: " + lInstructor);  
 			 
 			// Commit transaction
 			lSession.getTransaction().commit();
 			lSession.close();
-			
+						
 			// get courses for the Instructor
-			// If you hadn't getCourses when session was open (line 34), this would fail
-			System.out.println("Courses: " + lInstructor.getCourses());			
-			
+			System.out.println("Courses: " + lInstructor.getCourses());						
 			System.out.println("Done");
 		}
 		catch(Exception exc) {				
